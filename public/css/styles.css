@@ -97,7 +97,7 @@ nav ul {
   position: absolute;
 }
 
-@media screen and (min-width: 600px)
+@media screen and (min-width: 500px)
 {
   body {
     display: grid;
