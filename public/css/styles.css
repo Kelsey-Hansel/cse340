@@ -4,3 +4,25 @@
 *:after {
   box-sizing: border-box;
 }
+
+.highlight-image {
+  width: 70%;
+  height: auto;
+}
+
+#top-header {
+  display: flex;
+  flex-flow: column;
+}
+
+.siteName a {
+  text-decoration: none;
+  color: rgb(32, 32, 32);
+  font-weight: 700;
+  font-size: larger;
+}
+
+#tools a {
+  text-decoration: none;
+  color: rgb(32, 32, 32);
+}
