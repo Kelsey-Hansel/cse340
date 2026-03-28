@@ -97,6 +97,34 @@ nav ul {
   position: absolute;
 }
 
+#inv-display {
+  display: grid;
+  gap: 10px;
+
+  li {
+    list-style: none;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+#vehicle-display {
+  display: grid;
+  gap: 10px;
+  
+  li {
+    list-style: none;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 @media screen and (min-width: 500px)
 {
   body {
@@ -131,5 +159,11 @@ nav ul {
   .reviews {
     order: 2;
     padding: 5px;
+  }
+
+  #inv-display li {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
 }

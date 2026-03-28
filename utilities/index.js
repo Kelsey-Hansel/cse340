@@ -57,6 +57,35 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+/* **************************************
+* Build the inventory view HTML
+* ************************************ */
+Util.buildVehicleCard = async function(data){
+  let grid
+  if(data.length > 0){
+    grid = '<section id="vehicle-display">'
+    grid += '<h2>'
+    grid += data[0].inv_make + ' ' + data[0].inv_model
+    grid += '</h2>'
+    grid +=  '<img src="' + data[0].inv_image 
+    + '" alt="Image of '+ data[0].inv_make + ' ' + data[0].inv_model 
+    + ' on CSE Motors" />'
+    grid += '<ul>'
+    grid += '<li>Price: $' 
+    + new Intl.NumberFormat('en-US').format(data[0].inv_price) + '</li>'
+    grid += '<li>Year: ' + data[0].inv_year + '</li>'
+    grid += '<li>Miles: ' + new Intl.NumberFormat('en-US').format(data[0].inv_miles) + '</li>'
+    grid += '<li>Color: ' + data[0].inv_color + '</li>'
+    grid += '<li>Description: ' + data[0].inv_description + '</li>'
+    grid += '</ul>'
+    grid += '</section>'
+    grid += '<a href="../partials/footer">Click Here for an Error!</a>'
+  } else { 
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
