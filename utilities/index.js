@@ -79,7 +79,6 @@ Util.buildVehicleCard = async function(data){
     grid += '<li>Description: ' + data[0].inv_description + '</li>'
     grid += '</ul>'
     grid += '</section>'
-    grid += '<a href="../partials/footer">Click Here for an Error!</a>'
   } else { 
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
