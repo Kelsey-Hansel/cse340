@@ -85,6 +85,25 @@ Util.buildVehicleCard = async function(data){
   return grid
 }
 
+Util.buildClassificationDropDown = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classificationDropDown =
+    '<select name="classification_id" id="classificationDropDown" required>'
+  classificationDropDown += "<option value=''>Please choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationDropDown += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationDropDown += " selected "
+    }
+    classificationDropDown += ">" + row.classification_name + "</option>"
+  })
+  classificationDropDown += "</select>"
+  return classificationDropDown
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

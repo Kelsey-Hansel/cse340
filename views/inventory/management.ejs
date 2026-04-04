@@ -1,0 +1,21 @@
+<!-- Content Heading -->
+<h1>
+    <%= title %>
+</h1>
+
+<!-- Flash Message -->
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error=> { %>
+        <li>
+            <%= error.msg %>
+        </li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<section class="management">
+    <p>Click <a href="/inv/add-classification">here</a> to add a new classification.</p>
+    <p>Click <a href="/inv/add-inventory">here</a> to add a new inventory item.</p>
+</section>

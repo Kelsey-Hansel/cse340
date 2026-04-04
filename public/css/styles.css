@@ -46,7 +46,7 @@
 
 nav {
   background-color: rgb(32, 32, 32);
-  padding: 5px;
+  padding: 5px 0;
 }
 
 nav ul {
@@ -125,12 +125,21 @@ nav ul {
   }
 }
 
-input:required:invalid, input:focus:invalid {
-  background-color:  red;
+.notice {
+  list-style: none;
+  color: white;
+  background-color: rgba(138, 3, 3, 0.705);
+  text-align: center;
+  border: 1px solid rgba(138, 3, 3);
+  border-radius: 15px;
+}
+
+input:focus:invalid {
+  background-color:  rgba(255, 0, 0, 0.5);
 }
 
 input:required:valid {
-  background-color:  green;
+  background-color:  rgba(5, 238, 5, 0.5);
 }
 
 .register-form form {
@@ -161,6 +170,42 @@ input:required:valid {
   text-align: center;
   gap: 15px;
   padding: 25px;
+
+  input[type="submit"] {
+    grid-column: 1 / 3;
+    padding: 10px;
+    justify-self: center;
+  }
+}
+
+.classification-form form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-align: center;
+  gap: 15px;
+  padding: 25px;
+
+  div {
+    grid-column: 1 / 3;
+    color: white;
+    background-color: rgba(32, 32, 32, 0.781);
+    border: 1px solid rgb(32, 32, 32);
+    border-radius: 15px;
+    margin: 10px 30px;
+  }
+
+  input[type="submit"] {
+    grid-column: 1 / 3;
+    padding: 10px;
+    justify-self: center;
+  }
+}
+
+.inventory-form form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-align: center;
+  gap: 15px;
 
   input[type="submit"] {
     grid-column: 1 / 3;

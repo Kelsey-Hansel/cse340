@@ -1,0 +1,27 @@
+<!-- Content Heading -->
+<h1>
+    <%= title %>
+</h1>
+
+<!-- Flash Message -->
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error=> { %>
+        <li>
+            <%= error.msg %>
+        </li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<section class="classification-form">
+    <form action="/inv/add-classification" method="post">
+        <label for="classification_name">Classification:</label>
+        <input type="text" id="classification_name" name="classification_name" required pattern="[a-zA-Z]+">
+        <div>
+            <p>The classification name cannot contain a space or special character.</p>
+        </div>
+        <input type="submit" value="Add Classification">
+    </form>
+</section>
