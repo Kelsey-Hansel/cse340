@@ -1,10 +1,10 @@
 /* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
- *******************************************/
+* This server.js file is the primary file of the 
+* application. It is used to control the project.
+*******************************************/
 /* ***********************
- * Require Statements
- *************************/
+* Require Statements
+*************************/
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
@@ -17,25 +17,26 @@ const baseController = require("./controllers/baseController")
 const session = require("express-session")
 const pool = require('./database/')
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
- * Middleware
- * ************************/
- app.use(session({
-  store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
-    pool,
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
- }))
+* Middleware
+* ************************/
+app.use(session({
+store: new (require('connect-pg-simple')(session))({
+  createTableIfMissing: true,
+  pool,
+}),
+secret: process.env.SESSION_SECRET,
+resave: true,
+saveUninitialized: true,
+name: 'sessionId',
+}))
 
- app.use(bodyParser.json())
- app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-
+app.use(cookieParser())
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -46,15 +47,15 @@ app.use(function(req, res, next){
 
 
 /* ***********************
- * View Engine and Templates
- *************************/
+* View Engine and Templates
+*************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout")
 
 /* ***********************
- * Routes
- *************************/
+* Routes
+*************************/
 app.use(static)
 
 // Index route
