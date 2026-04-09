@@ -14,6 +14,11 @@ router.get("/add-classification", utilities.handleErrors(invController.buildAddC
 
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory))
 
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+// route to the view for modifying the inventory
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildModifyInventoryView))
+
 // Process the classification data
 router.post(
   "/add-classification",
@@ -28,6 +33,13 @@ router.post(
   regValidate.InventoryRules(),
   regValidate.checkInvData,
   utilities.handleErrors(invController.addInventory)
+)
+
+router.post(
+  "/update/",
+  regValidate.InventoryRules(),
+  regValidate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
 )
 
 module.exports = router

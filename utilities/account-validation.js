@@ -107,7 +107,7 @@ validate.checkRegData = async (req, res, next) => {
         .withMessage("Password does not meet requirements.")
         .custom(async (account_email, account_password) => {
           const passwordIsCorrect = await accountModel.checkCorrectPassword(account_email)
-          if (!passwordIsCorrect == account_password){
+          if (!passwordIsCorrect === account_password){
             throw new Error("Password is incorrect, please try again.")
           }
         }),
