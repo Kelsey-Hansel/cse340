@@ -37,6 +37,7 @@
         <input type="text" id="inv_thumbnail" name="inv_thumbnail" required value="<%- inv_thumbnail %>">
         <label for="inv_description">Description:</label>
         <textarea name="inv_description" id="inv_description" rows="5" cols="10" placeholder="Please enter description edit here." required><%- inv_description %></textarea>
+        <p>Confirm update by clicking the button. Must change something to submit.</p>
         <input type="submit" id="updateButton" value="Update Vehicle" disabled>
         <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
     </form>
