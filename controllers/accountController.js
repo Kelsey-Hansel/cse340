@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
   require("dotenv").config()
 const accountModel = require("../models/account-model")
+const { cookie } = require("express-validator")
 
 
 /* ****************************************
@@ -124,7 +125,139 @@ async function buildAccountManagement(req, res, next) {
     title: "Account Management",
     nav,
     errors: null,
+    account_firstname: res.locals.accountData.account_firstname,
   })
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement }
+async function checkAccess(req, res, next) {
+  let nav = await utilities.getNav()
+  const token = req.cookies.jwt
+  if (!token) {
+    req.flash("notice", "Please log in.")
+    res.status(400).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+    })
+    return
+  }
+  try {
+    if (res.locals.accountData.account_type === "Employee" || res.locals.accountData.account_type === "Admin") {
+      next()
+    } else {
+      req.flash("notice", "You do not have access.")
+      return res.redirect("/")
+    }
+  } catch (error) {
+    throw new Error('Access Forbidden')
+  }
+}
+
+/* ****************************************
+*  Deliver update account view
+* *************************************** */
+async function buildUpdateView(req, res, next) {
+  let nav = await utilities.getNav()
+  const account_id = res.locals.accountData.account_id
+  const accountDetails = await accountModel.getAccountById(account_id)
+  res.render("account/update-account", {
+    title: "Update Account",
+    nav,
+    errors: null,
+    account_firstname: accountDetails.account_firstname,
+    account_lastname: accountDetails.account_lastname,
+    account_email: accountDetails.account_email,
+    account_id
+  })
+}
+
+async function updateAccount(req, res, next) {
+  let nav = await utilities.getNav()
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+
+  const regResult = await accountModel.updateAccount(
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id
+  )
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Account information change was successful.`
+    )
+    res.status(201).render("account/account-management", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      account_firstname: req.body.account_firstname,
+    })
+  } else {
+    req.flash("notice", "Sorry, the account information change failed.")
+    res.status(501).render("account/update-account", {
+      title: "Update Account",
+      nav,
+    })
+  }
+}
+
+async function updatePassword(req, res, next) {
+  let nav = await utilities.getNav()
+  const { account_password, account_id } = req.body
+
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the update to the password.')
+    res.status(500).render("account/update-account", {
+      title: "Update Account",
+      nav,
+      errors: null,
+    })
+  }
+
+  const regResult = await accountModel.updatePassword(
+    hashedPassword,
+    account_id,
+  )
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Password change was successful.`
+    )
+    res.status(201).render("account/account-management", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      account_firstname: res.locals.accountData.account_firstname,
+    })
+  } else {
+    req.flash("notice", "Sorry, the password change failed.")
+    res.status(501).render("account/update-account", {
+      title: "Update Account",
+      nav,
+    })
+  }
+}
+
+async function buildLogout(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/logout", {
+    title: "Logout",
+    nav,
+    errors: null,
+  })
+}
+
+async function accountLogout(req, res) {
+  res.clearCookie("jwt")
+  req.flash("message notice", "Successful logout.")
+  return res.redirect("/")
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, checkAccess, buildUpdateView, updateAccount, updatePassword, buildLogout, accountLogout }

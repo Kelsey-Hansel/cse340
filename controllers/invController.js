@@ -174,7 +174,7 @@ invCont.buildModifyInventoryView = async function (req, res, next) {
     inv_price: data[0].inv_price,
     inv_miles: data[0].inv_miles,
     inv_color: data[0].inv_color,
-    classification_id: data[0].classification_id
+    classification_id: data[0].classification_id,
   })
 }
 

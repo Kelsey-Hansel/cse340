@@ -46,7 +46,6 @@ app.use(function(req, res, next){
   next()
 })
 
-
 /* ***********************
 * View Engine and Templates
 *************************/

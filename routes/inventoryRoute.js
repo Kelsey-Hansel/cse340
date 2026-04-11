@@ -3,23 +3,24 @@ const router = new express.Router()
 const utilities = require("../utilities/")
 const regValidate = require('../utilities/inventory-validation')
 const invController = require("../controllers/invController")
+const accountController = require("../controllers/accountController")
 
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
 
 router.get("/detail/:inv_id", utilities.handleErrors(invController.buildByInventoryId))
 
-router.get("/", utilities.handleErrors(invController.buildManagement))
+router.get("/", utilities.handleErrors(accountController.checkAccess), utilities.handleErrors(invController.buildManagement))
 
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
+router.get("/add-classification", utilities.handleErrors(accountController.checkAccess), utilities.handleErrors(invController.buildAddClassification))
 
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory))
+router.get("/add-inventory", utilities.handleErrors(accountController.checkAccess), utilities.handleErrors(invController.buildAddInventory))
 
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get("/getInventory/:classification_id", utilities.handleErrors(accountController.checkAccess), utilities.handleErrors(invController.getInventoryJSON))
 
 // route to the view for modifying the inventory
-router.get("/edit/:inv_id", utilities.handleErrors(invController.buildModifyInventoryView))
+router.get("/edit/:inv_id", utilities.handleErrors(accountController.checkAccess), utilities.handleErrors(invController.buildModifyInventoryView))
 
-router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteView))
+router.get("/delete/:inv_id", utilities.handleErrors(accountController.checkAccess), utilities.handleErrors(invController.buildDeleteView))
 
 // Process the classification data
 router.post(

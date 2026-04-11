@@ -1,0 +1,12 @@
+<!-- Content Heading -->
+<h1>
+    <%= title %>
+</h1>
+
+<!-- Flash Message -->
+<%- messages() %>
+
+<form id="logoutForm" action="/account/logout" method="post">
+    <p>Do you wish to logout? Click button to confirm.</p>
+    <input type="submit" value="Logout">
+</form>

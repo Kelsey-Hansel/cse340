@@ -42,19 +42,28 @@
   text-decoration: none;
   color: rgb(32, 32, 32);
   justify-self: right;
+  padding: 3px;
 }
 
 nav {
   background-color: rgb(32, 32, 32);
-  padding: 5px 0;
+  padding: 5px;
 }
 
 nav ul {
   display: flex;
   justify-content: space-evenly;
   flex-flow: row;
-  list-style: none;
-  color: white;
+
+  li {
+    padding: 3px;
+    list-style: none;
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
 }
 
 .reviews li {
@@ -143,6 +152,41 @@ input:required:valid {
 }
 
 .register-form form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-align: center;
+  gap: 15px;
+
+  div {
+    grid-column: 1 / 3;
+    color: white;
+    background-color: rgba(32, 32, 32, 0.781);
+    border: 1px solid rgb(32, 32, 32);
+    border-radius: 15px;
+    margin: 10px 30px;
+  }
+
+  input[type="submit"] {
+    grid-column: 1 / 3;
+    padding: 10px;
+    justify-self: center;
+  }
+}
+
+#accountUpdateForm {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-align: center;
+  gap: 15px;
+
+  input[type="submit"] {
+    grid-column: 1 / 3;
+    padding: 10px;
+    justify-self: center;
+  }
+}
+
+#passwordUpdateForm {
   display: grid;
   grid-template-columns: 1fr 2fr;
   text-align: center;
